@@ -1,12 +1,16 @@
 module.exports = {
   verbose: true,
-  moduleFileExtensions: ['js', 'json', 'vue'],
+  testMatch: ['**/*.test.js'], // test or steps
+  moduleFileExtensions: ['js', 'json', 'vue', 'ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
   transform: {
     '.*\\.(vue)$': 'vue-jest',
     '^.+\\.js$': '<rootDir>/node_modules/babel-jest',
+    '^.+\\.ts$': 'ts-jest',
   },
-  testMatch: ['**/*.steps.js'],
   // collectCoverage: true,
-  // collectCoverageFrom: ['src/components/*.{js,vue}', '!**/node_modules/**'],
   // coverageReporters: ['html', 'text-summary'],
+  // collectCoverageFrom: ['src/components/*.{js,vue}', '!**/node_modules/**'],
 };
