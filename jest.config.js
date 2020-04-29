@@ -1,6 +1,6 @@
 module.exports = {
   verbose: true,
-  testMatch: ['**/*.test.js'], // test or steps
+  testMatch: ['**/*.steps.js'], // test & steps
   moduleFileExtensions: ['js', 'json', 'vue', 'ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
