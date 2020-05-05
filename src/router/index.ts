@@ -1,8 +1,11 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
+
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
+
 import Colors from '../views/color_picker/Colors.vue';
+import Components from '../views/Components.vue';
 
 Vue.use(VueRouter);
 
@@ -26,6 +29,11 @@ const routes: Array<RouteConfig> = [
     path: '/colors',
     name: 'Colors',
     component: Colors,
+  },
+  {
+    path: '/components',
+    name: 'Components',
+    component: Components,
   },
 ];
 

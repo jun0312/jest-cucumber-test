@@ -6,9 +6,11 @@
         <div>
           <p>功能選單</p>
           <v-card class="mb-8" width="600" tile>
-            <v-list flat :color="blocks[1].color">
+            <!-- dark 用於切換未被激活的字體顏色，color 用於切換背景顏色 -->
+            <v-list flat :dark="blocks[1].whiteText" :color="blocks[1].color">
               <v-subheader>REPORTS</v-subheader>
-              <v-list-item-group v-model="item" color="white">
+              <!-- class 用於切換被激活的字體顏色 -->
+              <v-list-item-group v-model="item" class="warning--text">
                 <v-list-item v-for="(item, i) in items" :key="i">
                   <v-list-item-icon>
                     <v-icon v-text="item.icon"></v-icon>
@@ -25,8 +27,15 @@
         <!-- Card -->
         <p>內容框（標題列）</p>
         <v-card class="mb-8" max-width="600">
-          <v-card-title :style="`backgroundColor: ${blocks[2].color}`">
+          <!-- class 設置字體顏色，background 設置背景色 -->
+          <!-- :class="{ 'white--text': blocks[2].whiteText }" -->
+          <!-- :class="blocks[2].textColor" -->
+          <v-card-title
+            :class="blocks[2].textColor"
+            :style="`background: ${blocks[2].color}`"
+          >
             I am the title
+            {{ typeof blocks[2].whiteText }}
           </v-card-title>
           <v-card-text>
             <div>Word of the Day</div>
@@ -44,33 +53,47 @@
 
         <!-- Dialog -->
         <p>對話框（標題列）</p>
-        <v-btn color="#62CFBB" @click.stop="dialog = true" class="mb-8 d-block">Open Dialog</v-btn>
+        <v-btn color="primary" @click.stop="dialog = true" class="mb-8 d-block">Open Dialog</v-btn>
 
         <v-dialog v-model="dialog" max-width="600">
           <v-card>
-            <v-card-title class="headline" :style="`backgroundColor: ${blocks[3].color}`"
+            <!-- class 設置字體顏色，background 設置背景色 -->
+            <!-- :class="{ 'white--text': blocks[3].whiteText }" -->
+            <v-card-title
+              :class="blocks[3].textColor"
+              :style="`background: ${blocks[3].color}`"
               >Use Google's location service?</v-card-title
             >
 
             <v-card-text>
-              Let Google help apps determine location. This means sending anonymous location data to
-              Google, even when no apps are running.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde optio molestias nihil
+              placeat mollitia maxime eligendi, architecto recusandae aspernatur, voluptatum totam
+              repudiandae suscipit, nemo delectus facilis a dolores. Et, amet. Lorem ipsum dolor sit
+              amet, consectetur adipisicing elit. Unde optio molestias nihil placeat mollitia maxime
+              eligendi, architecto recusandae aspernatur, voluptatum totam repudiandae suscipit,
+              nemo delectus facilis a dolores. Et, amet. Lorem ipsum dolor sit amet, consectetur
+              adipisicing elit. Unde optio molestias nihil placeat mollitia maxime eligendi,
+              architecto recusandae aspernatur, voluptatum totam repudiandae suscipit, nemo delectus
+              facilis a dolores. Et, amet.
             </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn color="green darken-1" text @click="dialog = false">Disagree</v-btn>
-
-              <v-btn color="green darken-1" text @click="dialog = false">Agree</v-btn>
-            </v-card-actions>
           </v-card>
         </v-dialog>
 
         <!-- Button -->
         <p>按鈕</p>
         <div class="mb-8">
-          <v-btn large :color="blocks[4].color" width="180px" class="mr-8">Hello</v-btn>
+          <!-- class 設置字體顏色，color 設置背景色 -->
+          <!-- :dark="blocks[4].whiteText" -->
+          <!-- :class="{ 'white--text': blocks[4].whiteText }" -->
+          <v-btn
+            large
+            :color="blocks[4].color"
+            width="180px"
+            class="mr-8"
+            :class="blocks[4].textColor"
+          >
+            Button
+          </v-btn>
         </div>
       </v-col>
 
@@ -100,6 +123,7 @@
             @click="UPDATE_COLOR({ select_color, select_block })"
             >確認</v-btn
           >
+          <!-- eslint-disable-next-line max-len -->
           <v-btn
             v-if="select_block !== ''"
             color="warning"
@@ -107,6 +131,25 @@
             width="100%"
             @click="RESET_COLOR()"
             >重置</v-btn
+          >
+
+          <!-- eslint-disable-next-line max-len -->
+          <v-btn
+            v-if="select_block !== ''"
+            color="danger"
+            class="mt-4 white--text"
+            width="100%"
+            @click="openDarkMode"
+            >深色主題</v-btn
+          >
+
+          <v-btn
+            v-if="select_block !== ''"
+            color="success"
+            class="mt-4 white--text"
+            width="100%"
+            @click="SWITCH_TEXT_COLOR(select_block)"
+            >切換黑白字體顏色</v-btn
           >
         </div>
       </v-col>
@@ -116,6 +159,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { State, namespace, Mutation } from 'vuex-class';
 
 @Component
@@ -138,6 +182,8 @@ export default class Colors extends Vue {
 
   @(namespace('colors').Mutation) RESET_COLOR!: Function;
 
+  @(namespace('colors').Mutation) SWITCH_TEXT_COLOR!: Function;
+
   // List
   item = 1;
 
@@ -147,16 +193,16 @@ export default class Colors extends Vue {
     { text: 'Conversions', icon: 'mdi-flag' },
   ];
 
+  openDarkMode() {
+    this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+  }
+
   // get color() {
   //   return this.value;
   // }
 
   // set color(v) {
   //   this.value = v;
-  // }
-
-  // mounted() {
-  //   this.$vuetify.theme.dark = true;
   // }
 }
 </script>

@@ -1,18 +1,28 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="home d-flex flex-column align-center">
+    <v-btn class="mt-8" color="primary" dark width="1200" large @click="toColors">顏色選擇器</v-btn>
+    <v-btn class="mt-8" color="primary" dark width="1200" large @click="toComponents">高複用組件</v-btn>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld,
-  },
-};
+@Component
+export default class Home extends Vue {
+  toColors() {
+    this.$router.push('colors');
+  }
+
+  toComponents() {
+    this.$router.push('components');
+  }
+}
 </script>
+
+<style lang="scss">
+  .home {
+    width: 100vw;
+    height: 100vh;
+  }
+</style>
