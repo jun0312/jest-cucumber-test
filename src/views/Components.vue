@@ -1,9 +1,15 @@
 <template>
   <v-row no-gutters>
     <!-- 側邊功能選單 -->
-    <v-list dark flat color="#009688" width="280" min-height="100vh" style="border-radius: unset;">
-      <v-list-item-group v-model="list_item">
-        <v-list-item v-for="(item, i) in list_items" :key="i" color="#FBD341">
+    <v-list
+      flat
+      :color="blocks[1].color"
+      :dark="blocks[1].whiteText"
+      width="280" min-height="100vh"
+      style="border-radius: unset;"
+    >
+      <v-list-item-group v-model="list_item" color="warning">
+        <v-list-item v-for="(item, i) in list_items" :key="i">
           <v-list-item-icon>
             <v-icon v-text="item.icon"></v-icon>
           </v-list-item-icon>
@@ -36,11 +42,13 @@
           <!-- 對話框 -->
           <v-dialog v-model="dialog_main" width="600">
             <template v-slot:activator="{ on }">
-              <v-btn class="mb-4" color="#62CFBB" dark v-on="on">對話框</v-btn>
+              <v-btn class="mb-4" v-on="on" dark
+              :color="blocks[4].color"
+                :class="blocks[4].textColor">對話框</v-btn>
             </template>
             <v-card>
-              <v-card-title style="background-color: #62CFBB;">
-                <span style="color: white;">對話框</span>
+              <v-card-title :class="blocks[3].textColor" :style="`background: ${blocks[3].color}`">
+                對話框
               </v-card-title>
               <div class="pa-8 d-flex">
                 <div class="box">
@@ -60,11 +68,13 @@
           <!-- 刪除框 -->
           <v-dialog v-model="dialog_delete" width="350">
             <template v-slot:activator="{ on }">
-              <v-btn color="#62CFBB" dark v-on="on">刪除框</v-btn>
+              <v-btn class="mb-4" v-on="on" dark
+                :color="blocks[4].color"
+                :class="blocks[4].textColor">刪除框</v-btn>
             </template>
             <v-card>
-              <v-card-title style="background-color: #62CFBB;">
-                <span style="color: white;">確定刪除 ...</span>
+              <v-card-title :class="blocks[3].textColor" :style="`background: ${blocks[3].color}`">
+                確定刪除 ...
               </v-card-title>
               <div class="pa-8 d-flex">
                 <div class="box">
@@ -77,18 +87,18 @@
                 <!-- <v-spacer></v-spacer> -->
                 <v-btn width="47.5%" color="#acacac" dark @click="dialog = false">取消</v-btn>
                 <!-- eslint-disable-next-line max-len -->
-                <v-btn class="ml-auto" width="47.5%" color="#f76D6D" dark @click="dialog = false"
-                  >刪除</v-btn
-                >
+                <v-btn class="ml-auto" width="47.5%" color="#f76D6D" dark @click="dialog = false">刪除</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
+
+          <ColorPicker />
         </div>
 
         <!-- 內容框 -->
         <v-card width="600">
-          <v-card-title style="background-color: #62CFBB;">
-            <span style="color: white;">內容框</span>
+          <v-card-title :class="blocks[2].textColor" :style="`background: ${blocks[2].color}`">
+            內容框
           </v-card-title>
           <div class="pa-8 d-flex">
             <div class="box">
@@ -106,11 +116,18 @@
 
         <!-- 選項卡 -->
         <v-card width="1000">
-          <v-tabs class="mb-4" v-model="tab" background-color="#62CFBB" dark fixed-tabs>
-            <v-tab v-for="item in items" :key="item.tab">{{ item.tab }}</v-tab>
+          <v-tabs
+            fixed-tabs
+            class="mb-4"
+            v-model="tab"
+            :background-color="blocks[2].color"
+
+          >
+            <v-tab v-for="item in items"
+            :key="item.tab" :class="blocks[2].textColor">{{ item.tab }}</v-tab>
           </v-tabs>
           <v-tabs-items v-model="tab">
-            <v-tabs color="#009688" fixed-tabs>
+            <v-tabs :color="blocks[2].color" fixed-tabs>
               <v-tab>看診列表</v-tab>
               <v-tab>詳細記錄</v-tab>
             </v-tabs>
@@ -150,7 +167,7 @@
               prepend-icon="fas fa-cloud-upload-alt"
               @change="uploadImage"
             ></v-file-input>
-          </v-avatar> -->
+          </v-avatar>-->
 
           <!-- <v-input :success-messages="'王貝貝'" success disabled>飼主姓名</v-input> -->
         </div>
@@ -163,10 +180,14 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 import Table from '@/components/Table.vue';
+import ColorPicker from '@/components/ColorPicker.vue';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { State, namespace, Mutation } from 'vuex-class';
 
 @Component({
   components: {
     Table,
+    ColorPicker,
   },
 })
 export default class Components extends Vue {
@@ -215,6 +236,8 @@ export default class Components extends Vue {
       // eslint-disable-next-line implicit-arrow-linebreak
       !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
   ];
+
+  @(namespace('colors').State) blocks!: object[];
 }
 </script>
 

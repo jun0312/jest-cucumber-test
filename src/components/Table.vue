@@ -1,21 +1,22 @@
 <template>
   <v-card width="830">
-    <v-card-title style="background-color: #62CFBB;">
-      <span style="color: white;">表格框</span>
+    <v-card-title :class="blocks[2].textColor" :style="`background: ${blocks[2].color}`">
+      表格框
     </v-card-title>
 
     <div>
       <v-data-table :headers="headers" :items="desserts" sort-by="calories">
         <template v-slot:top>
-          <v-toolbar flat color="white">
+          <v-toolbar flat :dark="false">
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
               <template v-slot:activator="{ on }">
                 <v-btn color="pink" dark class="mb-2" v-on="on">新增欄位</v-btn>
               </template>
               <v-card>
-                <v-card-title style="background-color: #62CFBB;">
-                  <span style="color: white;">{{ formTitle }}</span>
+                <v-card-title :class="blocks[3].textColor"
+                  :style="`background: ${blocks[3].color}`">
+                  {{ formTitle }}
                 </v-card-title>
 
                 <v-card-text>
@@ -74,9 +75,13 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { State, namespace, Mutation } from 'vuex-class';
 
 @Component
 export default class Table extends Vue {
+  @(namespace('colors').State) blocks!: object[];
+
   dialog = false;
 
   headers = [

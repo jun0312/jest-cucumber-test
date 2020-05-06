@@ -45,11 +45,13 @@ export default {
       state.blocks.forEach((item: any, index: any) => {
         const i = item;
         if (!index) {
-          i.color = 'white';
+          i.color = '#ffffff';
         } else if (item.value === 'list') {
-          i.color = 'success';
+          i.color = '#009688';
+          i.whiteText = true;
         } else {
-          i.color = 'primary';
+          i.color = '#62CFBB';
+          i.textColor = 'white--text';
         }
       });
     },

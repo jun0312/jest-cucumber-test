@@ -30,10 +30,7 @@
           <!-- class 設置字體顏色，background 設置背景色 -->
           <!-- :class="{ 'white--text': blocks[2].whiteText }" -->
           <!-- :class="blocks[2].textColor" -->
-          <v-card-title
-            :class="blocks[2].textColor"
-            :style="`background: ${blocks[2].color}`"
-          >
+          <v-card-title :class="blocks[2].textColor" :style="`background: ${blocks[2].color}`">
             I am the title
             {{ typeof blocks[2].whiteText }}
           </v-card-title>
@@ -48,7 +45,7 @@
           </v-card-text>
           <!-- <v-card-actions>
         <v-btn text color="deep-purple accent-4">Learn More</v-btn>
-      </v-card-actions> -->
+          </v-card-actions>-->
         </v-card>
 
         <!-- Dialog -->
@@ -62,8 +59,7 @@
             <v-card-title
               :class="blocks[3].textColor"
               :style="`background: ${blocks[3].color}`"
-              >Use Google's location service?</v-card-title
-            >
+            >Use Google's location service?</v-card-title>
 
             <v-card-text>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde optio molestias nihil
@@ -87,13 +83,11 @@
           <!-- :class="{ 'white--text': blocks[4].whiteText }" -->
           <v-btn
             large
-            :color="blocks[4].color"
             width="180px"
             class="mr-8"
+            :color="blocks[4].color"
             :class="blocks[4].textColor"
-          >
-            Button
-          </v-btn>
+          >Button</v-btn>
         </div>
       </v-col>
 
@@ -109,11 +103,7 @@
             item-value="value"
           ></v-select>
           <!-- eslint-disable-next-line max-len -->
-          <v-color-picker
-            v-model="select_color"
-            :mode.sync="mode"
-            v-if="select_block !== ''"
-          ></v-color-picker>
+          <v-color-picker v-model="select_color" :mode.sync="mode" v-if="select_block !== ''"></v-color-picker>
           <!-- <v-select v-model="mode" :items="modes" style="max-width: 300px"></v-select> -->
           <v-btn
             v-if="select_block !== ''"
@@ -121,8 +111,7 @@
             class="mt-4"
             width="100%"
             @click="UPDATE_COLOR({ select_color, select_block })"
-            >確認</v-btn
-          >
+          >確認</v-btn>
           <!-- eslint-disable-next-line max-len -->
           <v-btn
             v-if="select_block !== ''"
@@ -130,8 +119,7 @@
             class="mt-4"
             width="100%"
             @click="RESET_COLOR()"
-            >重置</v-btn
-          >
+          >重置</v-btn>
 
           <!-- eslint-disable-next-line max-len -->
           <v-btn
@@ -140,8 +128,7 @@
             class="mt-4 white--text"
             width="100%"
             @click="openDarkMode"
-            >深色主題</v-btn
-          >
+          >深色主題</v-btn>
 
           <v-btn
             v-if="select_block !== ''"
@@ -149,8 +136,7 @@
             class="mt-4 white--text"
             width="100%"
             @click="SWITCH_TEXT_COLOR(select_block)"
-            >切換黑白字體顏色</v-btn
-          >
+          >切換黑白字體顏色</v-btn>
         </div>
       </v-col>
     </v-row>
